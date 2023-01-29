@@ -2,24 +2,25 @@ import React from 'react';
 
 const Table = () => {
    return (
-      <div>
-         <div className='w-fit lg:w-10/12 px-5 mx-auto'>
-            <div>
+      <div className='mt-20'>
+         <div className='w-fit lg:w-10/12 px-5 mx-auto flex flex-col md:flex-row gap-4 justify-between border border-cyan-600 py-2 rounded mb-4'>
+            <div className=' flex gap-3'>
                <p>Billings</p>
-               <div><input type="text" placeholder="Type here" className="input input-xs input-bordered input-info w-full max-w-xs" /></div></div>
-            <div><button></button>
-               <button className="btn btn-sm btn-info text-white">Add New</button></div>
+               <div><input type="text" placeholder="Type here" className="input input-xs input-bordered input-info w-full max-w-xs" /></div>
+            </div>
+            <div><label htmlFor="my-modal-3" className="btn btn-sm btn-info text-white">Add New Bill</label></div>
+            {/* The button to open modal */}
          </div>
          <div className="overflow-x-auto">
             <table className="table table-compact w-fit lg:w-10/12 px-5 mx-auto">
                <thead>
                   <tr>
-                     <th>Name</th>
-                     <th>Job</th>
-                     <th>company</th>
-                     <th>location</th>
-                     <th>Last Login</th>
-                     <th>Favorite Color</th>
+                     <th>Billing ID</th>
+                     <th>Full Name</th>
+                     <th>Email</th>
+                     <th>Phone</th>
+                     <th>Paid Amount</th>
+                     <th>Access</th>
                   </tr>
                </thead>
                <tbody>
@@ -29,7 +30,7 @@ const Table = () => {
                      <td>Zemlak, Daniel and Leannon</td>
                      <td>United States</td>
                      <td>12/5/2020</td>
-                     <td>Purple</td>
+                     <td>Edit | Delete</td>
                   </tr>
                   <tr>
                      <td>Sammy Seston</td>
@@ -57,6 +58,16 @@ const Table = () => {
                   </tr>
                </tbody>
             </table>
+         </div>
+
+         {/* Put this part before </body> tag */}
+         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+         <div className="modal">
+            <div className="modal-box relative">
+               <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+               <h3 className="text-lg font-bold">Congratulations random Internet user!</h3>
+               <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+            </div>
          </div>
       </div>
    );
