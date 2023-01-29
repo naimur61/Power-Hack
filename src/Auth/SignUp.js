@@ -3,6 +3,10 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GoArrowSmallLeft } from 'react-icons/go';
+import logo from '../assets/logo.png';
+
+
 
 
 
@@ -30,31 +34,46 @@ const SignUp = () => {
 
 
    return (
-      <div className=' login-form'>
+      <div className=' login-form mt-20'>
          <div className='px-5 md:px-0 mt-12'>
             <div className="card md:w-96  bg-base-100 shadow-xl mx-auto">
                <div className="card-body">
-                  <h1 className='text-info font-serif font-bold text-3xl mb-2 text-center'>Login</h1>
+                  <div className='flex flex-col items-center'>
+                     <Link to='/'>
+                        <img src={logo} alt="" className=' h-14 w-16' />
+                     </Link>
+                     <p className='text-info font-serif font-bold text-2xl my-2 '>Sign Up</p>
+                  </div>
                   <form onSubmit={handleSubmit(onSubmit)}>
-                     {/* register your input into the hook by invoking the "register" function */}
-                     <span className="label-text font-semibold">Email</span>
-                     <input type='email' placeholder="Enter your email." {...register("email", { required: true, pattern: /@/ })} className="input input-bordered w-full  block  mb-3" />   {/* errors will return when field validation fails  */}
-                     {errors.email && <small className='block bg-red-300 px-4 mt-2 py-1 text-red-700 font-serif font-semibold rounded-lg w-fit'> This field is required</small>}
 
-                     {/* include validation with required or other standard HTML validation rules */}
-                     <span className="label-text font-semibold">Password</span>
-                     <input placeholder='Password' type='password' {...register("password", { required: true, minLength: 6 })} className="block input input-bordered w-full" />
+                     {/* Name */}
+                     <span className="label-text font-semibold">Enter Your Full Name</span>
+                     <input type='text' placeholder="Enter your name." {...register("name", { required: true })} className="input input-bordered w-full  block  mb-2" />
                      {/* errors will return when field validation fails  */}
-                     {errors.password && <small className='block bg-red-300 px-4 mt-2 py-1 text-red-700 font-serif font-semibold rounded-lg w-fit'> This field is required</small>}
-                     <p className='text-blue-700 font-semibold text-xs cursor-pointer'>Forgot Password ?</p>
+                     {errors.name && <small className='block bg-red-300 px-4 mt-1 mb-4  py-1 text-red-700 font-serif font-semibold rounded-lg w-fit'> Name must be required</small>}
+
+                     {/* Email  */}
+                     <span className="label-text font-semibold">Enter Your Email</span>
+                     <input placeholder="Email" type='email' {...register("email", { required: true })} className="input input-bordered w-full  block  mb-2" />
+                     {errors.email && <small className='block bg-red-300 px-4 mt-1 mb-4 py-1 text-red-700 font-serif font-semibold rounded-lg w-fit'>Email must be required</small>}
 
 
-                     <button type="submit" className="btn btn-info font-bold font-serif text-white hover:bg-cyan-600 block  my-3 w-full">Login</button>
-                     <small className='text-center block'><Link to='/signup' className='text-info font-semibold'>Create Account ?</Link></small>
-                     <div className="divider">OR</div>
+                     {/* Password */}
+                     <span className="label-text font-semibold">Enter Your Password</span>
 
+                     <input type='password' placeholder='Password' {...register("password", { required: "Password must be required.", minLength: { value: 6, message: "Password must be min six digit." }, pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/, message: "Password must be strong." } })} className="input input-bordered w-full  block" />
+                     {/* errors will return when field validation fails  */}
+                     {errors.password && <small className='block bg-red-300 px-4 mt-1 mb-4 py-1 text-red-700 font-serif font-semibold rounded-lg w-fit'>{errors.password.message}</small>}
+
+                     <div className="flex justify-between items-center mt-5">
+                        {/* Back for signIn  */}
+                        <strong><Link to='/login' className='text-info font-bold'>
+                           <GoArrowSmallLeft className="inline font-bold text-4xl" />
+                           Sign in</Link></strong>
+
+                        <input type="submit" placeholder='Register' className=' w-fit btn btn-sm my-3 block' />
+                     </div>
                   </form>
-                  <button className="btn btn-outline btn-info  w-full">CONTINUE WITH GOOGLE</button>
                </div >
                <ToastContainer />
             </div>

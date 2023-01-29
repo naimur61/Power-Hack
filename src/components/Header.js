@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import log_out from '../assets/logout.png'
 
 
 
 const Header = () => {
+   const location = useLocation()
+
+
    return (
       <div className="navbar bg-base-100 px-2">
          <div className="flex-1">

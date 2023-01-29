@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from '../assets/logo.png';
+
 // import { useAuth } from '../../../Hooks/Auth/useAuth';
 import './Login.css'
 
@@ -76,11 +78,17 @@ const Login = () => {
 
 
    return (
-      <div className=' login-form'>
+      <div className=' login-form mt-20'>
          <div className='px-5 md:px-0 mt-12'>
             <div className="card md:w-96  bg-base-100 shadow-xl mx-auto">
                <div className="card-body">
-                  <h1 className='text-info font-serif font-bold text-3xl mb-2 text-center'>Login</h1>
+
+                  <div className='flex flex-col items-center'>
+                     <Link to='/'>
+                        <img src={logo} alt="" className=' h-14 w-16' />
+                     </Link>
+                     <p className='text-info font-serif font-bold text-2xl my-2 '>Login</p>
+                  </div>
                   <form onSubmit={handleSubmit(onSubmit)}>
                      {/* register your input into the hook by invoking the "register" function */}
                      <span className="label-text font-semibold">Email</span>
