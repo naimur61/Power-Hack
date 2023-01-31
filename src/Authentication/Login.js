@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -14,42 +15,37 @@ import './Login.css'
 const Login = () => {
    const { register, handleSubmit, formState: { errors }, reset } = useForm();
    // const { userLogin, popupSignIn, googleProvider } = useAuth();
-   // const location = useLocation();
-   // const navigate = useNavigate();
-   // const from = location.state?.from?.pathname || '/';
+   const location = useLocation();
+   const navigate = useNavigate();
+   const from = location.state?.from?.pathname || '/';
 
+   // useEffect(() => {
+   //    const token = localStorage.getItem("token");
+   //    axios.get("http://localhost:5000/profile", {
+   //       headers: {
+   //          Authorization: token,
+   //       },
+   //    })
+   //       .then((res) => navigate("/profile"))
+   //       .catch((err) => {
+   //          navigate("/login")
+   //       })
+   // })
 
-   const onSubmit = (data, e) => {
-      // userLogin(data.email, data.password)
-      //    .then(result => {
-      //       setUserEmail(data?.email);
-      //       successToast('Login Successful.')
-      //       reset();
-      //       navigate(from, { replace: true })
-      //    })
-      //    .catch(er => {
-      //       errorToast(er.message)
-      //    })
-      // console.log(data);
+   const onSubmit = (data) => {
+      const username = data?.username;
+      const password = data?.password;
+
+      axios.post("http://localhost:5000/login", { username, password })
+         .then((user) => {
+            localStorage.setItem("token", user.data.token)
+            console.log(user);
+            successToast(user.data.message);
+            navigate(from, { replace: true });
+         })
+         .catch((err) => errorToast(err.response.data.message))
    };
 
-
-   // Google SignIn
-   // const googleSignIn = () => {
-   //    popupSignIn(googleProvider)
-   //       .then(result => {
-   //          const user = result.user;
-   //          navigate(from, { replace: true })
-   //       })
-   //       .catch(er => errorToast(er.message))
-   // }
-
-
-
-
-
-
-   // Toast 
    const successToast = (er) => {
       toast.success(er, {
          position: "top-center",
@@ -74,6 +70,7 @@ const Login = () => {
          theme: "colored",
       });
    }
+
 
 
 

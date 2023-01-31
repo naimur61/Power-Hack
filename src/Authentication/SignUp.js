@@ -5,33 +5,56 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoArrowSmallLeft } from 'react-icons/go';
 import logo from '../assets/logo.png';
-
-
+import axios from 'axios';
 
 
 
 const SignUp = () => {
+
    const { register, handleSubmit, formState: { errors }, reset } = useForm();
    // const { userLogin, popupSignIn, googleProvider } = useAuth();
-   // const location = useLocation();
-   // const navigate = useNavigate();
-   // const from = location.state?.from?.pathname || '/';
+   const location = useLocation();
+   const navigate = useNavigate();
+   const from = location.state?.from?.pathname || '/';
 
 
-   const onSubmit = (data, e) => {
-      // userLogin(data.email, data.password)
-      //    .then(result => {
-      //       setUserEmail(data?.email);
-      //       successToast('Login Successful.')
-      //       reset();
-      //       navigate(from, { replace: true })
-      //    })
-      //    .catch(er => {
-      //       errorToast(er.message)
-      //    })
-      // console.log(data);
+   const onSubmit = (data) => {
+      const username = data?.username;
+      const password = data?.password;
+
+      axios.post("http://localhost:5000/register", { username, password })
+         .then((res) => {
+            console.log(res);
+            successToast("User is register");
+            navigate(from, { replace: true });
+         })
+         .catch((err) => errorToast(err.response.data))
    };
 
+   const successToast = (er) => {
+      toast.success(er, {
+         position: "top-center",
+         autoClose: 1000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "colored",
+      });
+   }
+   const errorToast = (er) => {
+      toast.error(er, {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "colored",
+      });
+   }
 
    return (
       <div className=' login-form mt-20'>
@@ -54,8 +77,8 @@ const SignUp = () => {
 
                      {/* Email  */}
                      <span className="label-text font-semibold">Enter Your Email</span>
-                     <input placeholder="Email" type='email' {...register("email", { required: true })} className="input input-bordered w-full  block  mb-2" />
-                     {errors.email && <small className='block bg-red-300 px-4 mt-1 mb-4 py-1 text-red-700 font-serif font-semibold rounded-lg w-fit'>Email must be required</small>}
+                     <input placeholder="Email" type='email' {...register("username", { required: true })} className="input input-bordered w-full  block  mb-2" />
+                     {errors.username && <small className='block bg-red-300 px-4 mt-1 mb-4 py-1 text-red-700 font-serif font-semibold rounded-lg w-fit'>Email must be required</small>}
 
 
                      {/* Password */}
